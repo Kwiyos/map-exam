@@ -32,8 +32,30 @@ class onDeleteTap extends HomeEvent {
   List<Object?> get props => [note];
 }
 
-class onEditSubmitTap extends HomeEvent{
+class onAddTap extends HomeEvent {
+  const onAddTap();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class onEditTap extends HomeEvent {
+  const onEditTap();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class onViewTap extends HomeEvent {
+  const onViewTap();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class onEditSubmitTap extends HomeEvent {
   final Note note;
+
   const onEditSubmitTap(this.note);
 
   @override

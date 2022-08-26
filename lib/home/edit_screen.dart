@@ -6,9 +6,8 @@ import 'bloc/home_bloc.dart';
 
 class EditScreen extends StatefulWidget {
   final Note? note;
-  final bool editable;
 
-  const EditScreen({Key? key, this.note, this.editable = true}) : super(key: key);
+  const EditScreen({Key? key, this.note}) : super(key: key);
 
   @override
   State<EditScreen> createState() => _EditScreenState();
@@ -35,9 +34,9 @@ class _EditScreenState extends State<EditScreen> {
           appBar: AppBar(
             leading: Container(),
             centerTitle: true,
-            title: const Text('App Bar Title'),
+            title: Text(getTitle((state as HomeLoaded).editState)),
             actions: [
-              if (widget.editable)
+              if (state.editState == EditScreenMode.editMode || state.editState == EditScreenMode.addMode)
                 IconButton(
                     icon: const Icon(
                       Icons.check_circle,
@@ -67,8 +66,10 @@ class _EditScreenState extends State<EditScreen> {
                 TextFormField(
                   controller: _titleController,
                   initialValue: null,
-                  enabled: widget.editable,
-                  decoration: InputDecoration(hintText: 'Type the title here', border: widget.editable ? null : InputBorder.none),
+                  enabled: (state.editState == EditScreenMode.editMode || state.editState == EditScreenMode.addMode),
+                  decoration: InputDecoration(
+                      hintText: 'Type the title here',
+                      border: (state.editState == EditScreenMode.viewMode) ? InputBorder.none : null),
                   onChanged: (value) {},
                 ),
                 const SizedBox(
@@ -77,7 +78,7 @@ class _EditScreenState extends State<EditScreen> {
                 Expanded(
                   child: TextFormField(
                       controller: _descriptionController,
-                      enabled: widget.editable,
+                      enabled: (state.editState == EditScreenMode.editMode || state.editState == EditScreenMode.addMode),
                       initialValue: null,
                       maxLines: null,
                       expands: true,
@@ -92,5 +93,18 @@ class _EditScreenState extends State<EditScreen> {
         );
       },
     );
+  }
+
+  String getTitle(int editState) {
+    switch (editState) {
+      case EditScreenMode.editMode:
+        return 'Edit Note';
+      case EditScreenMode.addMode:
+        return 'Add new Note';
+      case EditScreenMode.viewMode:
+        return 'View Note';
+      default:
+        return 'Add Note';
+    }
   }
 }

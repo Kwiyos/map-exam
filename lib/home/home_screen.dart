@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 backgroundColor: Colors.blue.shade200,
                 child: Text(
                   (state is HomeLoaded) ? state.noteList.length.toString() : '0',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0),
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0),
                 ),
               ),
               const SizedBox(
@@ -49,14 +49,17 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           IconButton(
                             icon: const Icon(Icons.edit, color: Colors.blue),
-                            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_context) {
-                              return BlocProvider.value(
-                                value: BlocProvider.of<HomeBloc>(context),
-                                child: EditScreen(
-                                  note: state.noteList[index],
-                                ),
-                              );
-                            })),
+                            onPressed: () {
+                              context.read<HomeBloc>().add(const onEditTap());
+                              Navigator.push(context, MaterialPageRoute(builder: (_context) {
+                                return BlocProvider.value(
+                                  value: BlocProvider.of<HomeBloc>(context),
+                                  child: EditScreen(
+                                    note: state.noteList[index],
+                                  ),
+                                );
+                              }));
+                            },
                           ),
                           IconButton(
                             icon: const Icon(
@@ -71,15 +74,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   : null,
               title: Text(state.noteList[index].title ?? 'null'),
               subtitle: state.showLess ? null : Text(state.noteList[index].content ?? 'null'),
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_context) {
-                return BlocProvider.value(
-                  value: BlocProvider.of<HomeBloc>(context),
-                  child: EditScreen(
-                    note: state.noteList[index],
-                    editable: false,
-                  ),
-                );
-              })),
+              onTap: () {
+                context.read<HomeBloc>().add(const onViewTap());
+                Navigator.push(context, MaterialPageRoute(builder: (_context) {
+                  return BlocProvider.value(
+                    value: BlocProvider.of<HomeBloc>(context),
+                    child: EditScreen(
+                      note: state.noteList[index],
+                    ),
+                  );
+                }));
+              },
               onLongPress: () => context.read<HomeBloc>().add(onTitleLongPress(index)),
             ),
           ),
@@ -99,12 +104,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 heroTag: 'addButton',
                 child: const Icon(Icons.add),
                 tooltip: 'Add a new note',
-                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_context) {
-                  return BlocProvider.value(
-                    value: BlocProvider.of<HomeBloc>(context),
-                    child: const EditScreen(),
-                  );
-                })),
+                onPressed: () {
+                  context.read<HomeBloc>().add(const onAddTap());
+                  Navigator.push(context, MaterialPageRoute(builder: (_context) {
+                    return BlocProvider.value(
+                      value: BlocProvider.of<HomeBloc>(context),
+                      child: const EditScreen(),
+                    );
+                  }));
+                },
               ),
             ],
           ),
