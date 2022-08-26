@@ -29,6 +29,13 @@
             {
               "client_id": "1090403968281-ra1eu0gk2vsg8c43sovqgec99kgk4irq.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1090403968281-8eiuj8n9i4e83aeo17t73r429o8lo4cv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mapExam"
+              }
             }
           ]
         }
