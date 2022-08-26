@@ -4,12 +4,21 @@ abstract class HomeEvent extends Equatable {
   const HomeEvent();
 }
 
-class onInitialize extends HomeEvent{
+class onInitialize extends HomeEvent {
   @override
   List<Object?> get props => [];
 }
 
-class onShowButtonTap extends HomeEvent{
+class onShowButtonTap extends HomeEvent {
   @override
   List<Object?> get props => [];
+}
+
+class onTitleLongPress extends HomeEvent {
+  final int index;
+
+  const onTitleLongPress(this.index);
+
+  @override
+  List<Object?> get props => [index];
 }

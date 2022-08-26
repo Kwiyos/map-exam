@@ -40,29 +40,31 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.blueGrey,
             ),
             itemBuilder: (context, index) => ListTile(
-              // trailing: SizedBox(
-              //   width: 110.0,
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.end,
-              //     children: [
-              //       IconButton(
-              //         icon: const Icon(Icons.edit, color: Colors.blue),
-              //         onPressed: () {},
-              //       ),
-              //       IconButton(
-              //         icon: const Icon(
-              //           Icons.delete,
-              //           color: Colors.blue,
-              //         ),
-              //         onPressed: () {},
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              title: Text((state as HomeLoaded).noteList[index].title ?? 'null'),
+              trailing: index == (state as HomeLoaded).showEditToolIndex
+                  ? SizedBox(
+                      width: 110.0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.edit, color: Colors.blue),
+                            onPressed: () {},
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.blue,
+                            ),
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
+                    )
+                  : null,
+              title: Text(state.noteList[index].title ?? 'null'),
               subtitle: state.showLess ? null : Text(state.noteList[index].content ?? 'null'),
               onTap: () {},
-              onLongPress: () {},
+              onLongPress: () => context.read<HomeBloc>().add(onTitleLongPress(index)),
             ),
           ),
           floatingActionButton: Row(

@@ -14,19 +14,17 @@ class HomeInitial extends HomeState {
 class HomeLoaded extends HomeState {
   final List<Note> noteList;
   final bool showLess;
+  final int showEditToolIndex;
 
-  const HomeLoaded({required this.noteList, this.showLess = false});
+  const HomeLoaded({required this.noteList, this.showLess = false, this.showEditToolIndex = -1});
 
   @override
-  List<Object?> get props => [noteList, showLess];
+  List<Object?> get props => [noteList, showLess, showEditToolIndex];
 
-  HomeLoaded copyWith({
-    List<Note>? noteList,
-    bool? showLess,
-  }) {
+  HomeLoaded copyWith({List<Note>? noteList, bool? showLess, int? showEditToolIndex}) {
     return HomeLoaded(
-      noteList: noteList ?? this.noteList,
-      showLess: showLess ?? this.showLess,
-    );
+        noteList: noteList ?? this.noteList,
+        showLess: showLess ?? this.showLess,
+        showEditToolIndex: showEditToolIndex ?? this.showEditToolIndex);
   }
 }

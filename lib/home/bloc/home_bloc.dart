@@ -17,6 +17,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc(this._homeRepository) : super(HomeInitial()) {
     on<onInitialize>(_onInitialize);
     on<onShowButtonTap>(_onShowButtonTap);
+    on<onTitleLongPress>(_onTitleLongPress);
   }
 
   Future<FutureOr<void>> _onInitialize(onInitialize event, Emitter<HomeState> emit) async {
@@ -36,6 +37,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     if (state is HomeLoaded) {
       final homeLoadedState = state as HomeLoaded;
       emit(homeLoadedState.copyWith(showLess: !homeLoadedState.showLess));
+    }
+  }
+
+  FutureOr<void> _onTitleLongPress(onTitleLongPress event, Emitter<HomeState> emit) {
+    if (state is HomeLoaded) {
+      final homeLoadedState = state as HomeLoaded;
+      emit(homeLoadedState.copyWith(showEditToolIndex: event.index == homeLoadedState.showEditToolIndex ? -1 : event.index));
     }
   }
 }
