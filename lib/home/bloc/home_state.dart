@@ -5,23 +5,28 @@ abstract class HomeState extends Equatable {
 }
 
 class HomeInitial extends HomeState {
+  const HomeInitial();
+
   @override
   List<Object> get props => [];
 }
 
 class HomeLoaded extends HomeState {
   final List<Note> noteList;
+  final bool showLess;
 
-  const HomeLoaded({required this.noteList});
+  const HomeLoaded({required this.noteList, this.showLess = false});
 
   @override
-  List<Object?> get props => [noteList];
+  List<Object?> get props => [noteList, showLess];
 
   HomeLoaded copyWith({
     List<Note>? noteList,
+    bool? showLess,
   }) {
     return HomeLoaded(
       noteList: noteList ?? this.noteList,
+      showLess: showLess ?? this.showLess,
     );
   }
 }

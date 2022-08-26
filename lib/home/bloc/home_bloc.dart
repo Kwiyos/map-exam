@@ -16,6 +16,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   HomeBloc(this._homeRepository) : super(HomeInitial()) {
     on<onInitialize>(_onInitialize);
+    on<onShowButtonTap>(_onShowButtonTap);
   }
 
   Future<FutureOr<void>> _onInitialize(onInitialize event, Emitter<HomeState> emit) async {
@@ -29,5 +30,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }, onError: (e, s) {
       return HomeInitial();
     });
+  }
+
+  FutureOr<void> _onShowButtonTap(onShowButtonTap event, Emitter<HomeState> emit) {
+    if (state is HomeLoaded) {
+      final homeLoadedState = state as HomeLoaded;
+      emit(homeLoadedState.copyWith(showLess: !homeLoadedState.showLess));
+    }
   }
 }

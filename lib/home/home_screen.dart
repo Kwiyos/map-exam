@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
               //   ),
               // ),
               title: Text((state as HomeLoaded).noteList[index].title ?? 'null'),
-              subtitle: Text(state.noteList[index].content ?? 'null'),
+              subtitle: state.showLess ? null : Text(state.noteList[index].content ?? 'null'),
               onTap: () {},
               onLongPress: () {},
             ),
@@ -70,9 +70,10 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               FloatingActionButton(
                   heroTag: 'showButton',
-                  child: const Icon(Icons.menu),
-                  tooltip: 'Show less. Hide notes content',
-                  onPressed: () {}),
+                  child: (state is HomeLoaded && state.showLess) ? const Icon(Icons.menu) : const Icon(Icons.unfold_less),
+                  tooltip:
+                      (state is HomeLoaded && state.showLess) ? 'Show more. Show notes content' : 'Show less. Hide notes content',
+                  onPressed: () => context.read<HomeBloc>().add(onShowButtonTap())),
 
               /* Notes: for the "Show More" icon use: Icons.menu */
 
