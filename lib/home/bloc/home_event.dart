@@ -22,3 +22,12 @@ class onTitleLongPress extends HomeEvent {
   @override
   List<Object?> get props => [index];
 }
+
+class onDeleteTap extends HomeEvent {
+  final Note note;
+
+  const onDeleteTap(this.note);
+
+  @override
+  List<Object?> get props => [note];
+}

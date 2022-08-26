@@ -18,6 +18,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<onInitialize>(_onInitialize);
     on<onShowButtonTap>(_onShowButtonTap);
     on<onTitleLongPress>(_onTitleLongPress);
+    on<onDeleteTap>(_onDeleteTap);
   }
 
   Future<FutureOr<void>> _onInitialize(onInitialize event, Emitter<HomeState> emit) async {
@@ -45,5 +46,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       final homeLoadedState = state as HomeLoaded;
       emit(homeLoadedState.copyWith(showEditToolIndex: event.index == homeLoadedState.showEditToolIndex ? -1 : event.index));
     }
+  }
+
+  FutureOr<void> _onDeleteTap(onDeleteTap event, Emitter<HomeState> emit) {
+    emit((state as HomeLoaded).copyWith(showEditToolIndex: -1));
+    _homeRepository.deleteNote(event.note.id);
   }
 }

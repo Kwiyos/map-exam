@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Icons.delete,
                               color: Colors.blue,
                             ),
-                            onPressed: () {},
+                            onPressed: () => context.read<HomeBloc>().add(onDeleteTap(state.noteList[index])),
                           ),
                         ],
                       ),
