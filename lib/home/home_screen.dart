@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:map_exam/home/edit_screen.dart';
 import 'package:map_exam/note.dart';
 
 import 'bloc/home_bloc.dart';
@@ -48,7 +49,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           IconButton(
                             icon: const Icon(Icons.edit, color: Colors.blue),
-                            onPressed: () {},
+                            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_context) {
+                              return BlocProvider.value(
+                                value: BlocProvider.of<HomeBloc>(context),
+                                child: EditScreen(
+                                  note: state.noteList[index],
+                                ),
+                              );
+                            })),
                           ),
                           IconButton(
                             icon: const Icon(
@@ -63,7 +71,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   : null,
               title: Text(state.noteList[index].title ?? 'null'),
               subtitle: state.showLess ? null : Text(state.noteList[index].content ?? 'null'),
-              onTap: () {},
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_context) {
+                return BlocProvider.value(
+                  value: BlocProvider.of<HomeBloc>(context),
+                  child: EditScreen(
+                    note: state.noteList[index],
+                    editable: false,
+                  ),
+                );
+              })),
               onLongPress: () => context.read<HomeBloc>().add(onTitleLongPress(index)),
             ),
           ),
@@ -83,7 +99,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 heroTag: 'addButton',
                 child: const Icon(Icons.add),
                 tooltip: 'Add a new note',
-                onPressed: () {},
+                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_context) {
+                  return BlocProvider.value(
+                    value: BlocProvider.of<HomeBloc>(context),
+                    child: const EditScreen(),
+                  );
+                })),
               ),
             ],
           ),

@@ -9,7 +9,7 @@ import 'login/login_repository.dart';
 import 'login/login_screen.dart';
 import 'firebase/firebase_options.dart';
 import 'home/home_screen.dart';
-import 'edit_screen.dart';
+import 'home/edit_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
