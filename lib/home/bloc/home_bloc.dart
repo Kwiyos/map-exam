@@ -19,9 +19,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<onShowButtonTap>(_onShowButtonTap);
     on<onTitleLongPress>(_onTitleLongPress);
     on<onDeleteTap>(_onDeleteTap);
-    on<onEditTap>(_onEditTap);
-    on<onAddTap>(_onAddTap);
-    on<onViewTap>(_onViewTap);
+    on<onEditNoteTap>(_onEditNoteTap);
+    on<onAddNoteTap>(_onAddNoteTap);
+    on<onViewNoteTap>(_onViewNoteTap);
     on<onEditSubmitTap>(_onEditSubmitTap);
   }
 
@@ -61,21 +61,21 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     event.note.id == null ? _homeRepository.addNote(event.note) : _homeRepository.updateNote(event.note);
   }
 
-  FutureOr<void> _onEditTap(onEditTap event, Emitter<HomeState> emit) {
+  FutureOr<void> _onEditNoteTap(onEditNoteTap event, Emitter<HomeState> emit) {
     if (state is HomeLoaded) {
       final homeLoadedState = state as HomeLoaded;
       emit(homeLoadedState.copyWith(editState: EditScreenMode.editMode));
     }
   }
 
-  FutureOr<void> _onAddTap(onAddTap event, Emitter<HomeState> emit) {
+  FutureOr<void> _onAddNoteTap(onAddNoteTap event, Emitter<HomeState> emit) {
     if (state is HomeLoaded) {
       final homeLoadedState = state as HomeLoaded;
       emit(homeLoadedState.copyWith(editState: EditScreenMode.addMode));
     }
   }
 
-  FutureOr<void> _onViewTap(onViewTap event, Emitter<HomeState> emit) {
+  FutureOr<void> _onViewNoteTap(onViewNoteTap event, Emitter<HomeState> emit) {
     if (state is HomeLoaded) {
       final homeLoadedState = state as HomeLoaded;
       emit(homeLoadedState.copyWith(editState: EditScreenMode.viewMode));

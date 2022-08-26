@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           IconButton(
                             icon: const Icon(Icons.edit, color: Colors.blue),
                             onPressed: () {
-                              context.read<HomeBloc>().add(const onEditTap());
+                              context.read<HomeBloc>().add(const onEditNoteTap());
                               Navigator.push(context, MaterialPageRoute(builder: (_context) {
                                 return BlocProvider.value(
                                   value: BlocProvider.of<HomeBloc>(context),
@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
               title: Text(state.noteList[index].title ?? 'null'),
               subtitle: state.showLess ? null : Text(state.noteList[index].content ?? 'null'),
               onTap: () {
-                context.read<HomeBloc>().add(const onViewTap());
+                context.read<HomeBloc>().add(const onViewNoteTap());
                 Navigator.push(context, MaterialPageRoute(builder: (_context) {
                   return BlocProvider.value(
                     value: BlocProvider.of<HomeBloc>(context),
@@ -105,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: const Icon(Icons.add),
                 tooltip: 'Add a new note',
                 onPressed: () {
-                  context.read<HomeBloc>().add(const onAddTap());
+                  context.read<HomeBloc>().add(const onAddNoteTap());
                   Navigator.push(context, MaterialPageRoute(builder: (_context) {
                     return BlocProvider.value(
                       value: BlocProvider.of<HomeBloc>(context),
